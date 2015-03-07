@@ -13,6 +13,7 @@
 #                                                    #
 # https://github.com/Electronics-Ninja/RaspberryPi   #
 #                                                    #
+# Git Commit from Raspberry Pi B+                    #
 ######################################################
 
 __author__    = "Paul Kincaid" 
