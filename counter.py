@@ -26,6 +26,9 @@ __email__     = "paul.m.kincaid@gmail.com"
 import RPi.GPIO as GPIO
 import time, os, sys
 
+reset_pin = 16;
+clock_pin = 5;
+
 GPIO.setmode(GPIO.BCM)
 
 GPIO.setup(5, GPIO.OUT)
