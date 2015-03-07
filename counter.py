@@ -1,19 +1,24 @@
 #! /usr/bin/python
-######
+
 ######################################################
 # Simple Counter Program                             # 
 #                                                    #
 # Used with a Raspberry Pi B+                        #
 #  (can be used with other RPi's, just need to       #
 #    adjust the pins used)                           #
-# and 2 4026 decade counters                         #
-# and 1 3 7-segment display (only 2 are used)        #
-# Also need a tactile switch                         #
-# and a couple LEDs, a few resistors and a capacitor #
 #                                                    #
 # https://github.com/Electronics-Ninja/RaspberryPi   #
 #                                                    #
-# !!! Git Commit from Raspberry Pi B+                    #
+# See the Eagle Schematic file for external circuit  #
+# Parts List:                                        #
+#    - (2) 4026 decade counters                      #
+#    - (2) 7-segment displays (common cathode)       #
+#    - (1) Tactile switch - SPDT                     #
+#    - (3) 1k 1/8-watt resistors                     #
+#    - (3) 15k 1/8-watt resistors                    #
+#    - (2) 330 ohm 1/8-watt resistors                #
+#    - (1) 100uF Electrolytic Capacitor              #
+#    - (1) Raspberry Pi B+ (or other model)          #
 ######################################################
 
 __author__    = "Paul Kincaid" 
@@ -26,15 +31,22 @@ __email__     = "paul.m.kincaid@gmail.com"
 import RPi.GPIO as GPIO
 import time, os, sys
 
-reset_pin = 16;
-clock_pin = 5;
+#################################
+# Change these to any GPIO pins #
+#################################
+reset_pin = 16
+clock_pin = 5
+####### END CHANGE SECTION ######
 
 GPIO.setmode(GPIO.BCM)
 
-GPIO.setup(5, GPIO.OUT)
-GPIO.setup(16, GPIO.OUT)
+GPIO.setup(clock_pin, GPIO.OUT)
+GPIO.setup(reset_pin, GPIO.OUT)
 
-used_pins = (5, 16)
+cp = clock_pin
+rp = reset_pin
+
+used_pins = (cp, rp)
 
 for reset in used_pins:
         GPIO.output(reset, False)
@@ -44,23 +56,23 @@ i = 0
 while True:
         try:
                 if GPIO.input(20) and i == 0:
-                        GPIO.output(5, True)
+                        GPIO.output(cp, True)
                         time.sleep(1)
-                        GPIO.output(5, False)
+                        GPIO.output(cp, False)
                         time.sleep(1)
                         i = 1
                 elif i == 1:
-                        GPIO.output(5, True)
+                        GPIO.output(cp, True)
                         time.sleep(1)
-                        GPIO.output(5, False)
+                        GPIO.output(cp, False)
                         time.sleep(1)
                 if GPIO.input(20) and i == 1:
                         i = 0
                         time.sleep(1)
 
         except(KeyboardInterrupt):
-                GPIO.output(16, True)
-                GPIO.output(16, False)
+                GPIO.output(rp, True)
+                GPIO.output(rp, False)
                 GPIO.cleanup()
                 raise
 
