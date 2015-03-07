@@ -10,6 +10,8 @@
 # and 1 3 7-segment display (only 2 are used)        #
 # Also need a tactile switch                         #
 # and a couple LEDs, a few resistors and a capacitor #
+#                                                    #
+# https://github.com/Electronics-Ninja/RaspberryPi   #
 ######################################################
 
 __author__    = "Paul Kincaid" 
