@@ -36,6 +36,7 @@ import time, os, sys
 #################################
 reset_pin = 16
 clock_pin = 5
+switch_pin = 20
 ####### END CHANGE SECTION ######
 
 GPIO.setmode(GPIO.BCM)
@@ -45,17 +46,18 @@ GPIO.setup(reset_pin, GPIO.OUT)
 
 cp = clock_pin
 rp = reset_pin
+sp = switch_pin
 
 used_pins = (cp, rp)
 
 for reset in used_pins:
         GPIO.output(reset, False)
 
-GPIO.setup(20, GPIO.IN)
+GPIO.setup(sp, GPIO.IN)
 i = 0
 while True:
         try:
-                if GPIO.input(20) and i == 0:
+                if GPIO.input(sp) and i == 0:
                         GPIO.output(cp, True)
                         time.sleep(1)
                         GPIO.output(cp, False)
@@ -66,7 +68,7 @@ while True:
                         time.sleep(1)
                         GPIO.output(cp, False)
                         time.sleep(1)
-                if GPIO.input(20) and i == 1:
+                if GPIO.input(sp) and i == 1:
                         i = 0
                         time.sleep(1)
 
