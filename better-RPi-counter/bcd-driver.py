@@ -12,8 +12,12 @@
 # See the Eagle Schematic file for external circuit  #
 # Parts List:                                        #
 #    - (2) 7447 BCD 7-segment driver                 #
+#    - (1) 555 timer                                 #
+#    - (1) 2N2222 NPN Transistor                     #
 #    - (1) 7-segment displays (common anode)         #
-#    - (4) 1k 1/4-watt resistors                     #
+#    - (5) 1k 1/4-watt resistors                     #
+#    - (1) 15k 1/4-watt resistor                     #
+#    - (1) 10uf Capacitor                            #
 #    - (1) 470 ohm 1/4-watt                          #
 #    - (1) Raspberry Pi B+ (or other model)          #
 ######################################################
@@ -62,7 +66,7 @@ sp = switch_pin
 used_pins = (cp, rp)
 
 for reset in used_pins:
-        GPIO.output(reset, False)
+	GPIO.output(reset, False)
 for reset in (a,b,c,d):
 	GPIO.output(reset, False)
 
@@ -95,30 +99,6 @@ while True:
 				print "# should be EVEN, stop counting"
 				num = 1
 			GPIO.output(cp, False)
-
-
-#        try:
-#                if GPIO.input(sp) and i == 0:
-#                        GPIO.output(cp, True)
-#                        time.sleep(1)
-#                        GPIO.output(cp, False)
-#                        time.sleep(1)
-#                        i = 1
-#			bc = 1
-#			GPIO.output(bcd_values[bc], True)
-#                elif i == 1:
-#                        GPIO.output(cp, True)
-#                        time.sleep(1)
-#                        GPIO.output(cp, False)
-#                        time.sleep(1)
-#                if GPIO.input(sp) and i == 1:
-#                        i = 0
-#			bc = bc + 1
-#			for reset in (a,b,c,d):
-#				GPIO.output(reset, False)
-#			for v in bcd_values[bc]:
-#				GPIO.output(v, True)
-#                        time.sleep(1)
 
         except(KeyboardInterrupt):
                 GPIO.output(rp, True)
